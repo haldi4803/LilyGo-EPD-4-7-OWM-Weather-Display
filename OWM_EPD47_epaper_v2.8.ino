@@ -175,8 +175,11 @@ void setup() {
   if (notime == 1) {   // NO TIME, connect to WiFi or start AP Mode
     Serial.println("No Time: Connecting to WiFI");
     if (StartWiFi() == WL_CONNECTED && SetupTime() == true) {
-      Serial.println("Restarting.....");
-      ESP.restart(); //Reboot to start anew!
+      Serial.println("Got Time... Settingup Time....");
+      setenv("TZ", Timezone, 1);
+      tzset();
+      UpdateLocalTime();
+      //ESP.restart(); //Reboot to start anew!
     }
   }
 
